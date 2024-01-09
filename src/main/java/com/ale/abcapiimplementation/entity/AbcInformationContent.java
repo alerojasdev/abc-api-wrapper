@@ -1,13 +1,11 @@
 package com.ale.abcapiimplementation.entity;
 
 import jakarta.persistence.Table;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 @Table(name = "AbcInformationContent")
 public class AbcInformationContent {
 
     private String requestedText;
-    private LocalDateTime date = LocalDateTime.now();
+    private String date;
     private String newsUrl;
     private String newsPhotoUrl;
     private String newsTitle;
@@ -31,11 +29,11 @@ public class AbcInformationContent {
     }
 
     public String getDate() {
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-        return formatter.format(date);
+//        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        return date;
     }
 
-    public void setDate(LocalDateTime date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
@@ -73,6 +71,13 @@ public class AbcInformationContent {
 
     @Override
     public String toString() {
-        return requestedText;
+        return "AbcInformationContent{" +
+                "requestedText='" + requestedText + '\'' +
+                ", date='" + date + '\'' +
+                ", newsUrl='" + newsUrl + '\'' +
+                ", newsPhotoUrl='" + newsPhotoUrl + '\'' +
+                ", newsTitle='" + newsTitle + '\'' +
+                ", newsResume='" + newsResume + '\'' +
+                '}';
     }
 }

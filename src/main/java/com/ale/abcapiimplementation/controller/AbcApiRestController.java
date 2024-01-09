@@ -1,17 +1,15 @@
 package com.ale.abcapiimplementation.controller;
 
 import com.ale.abcapiimplementation.entity.AbcInformationContent;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
-
 @RestController
 @RequestMapping("/abc-api-implementation")
 public class AbcApiRestController {
-
-    @GetMapping("/consulta/{requestInfo}")
-    private ResponseEntity<List<AbcInformationContent>> getAbcInfo(@RequestParam String requestInfo){
+    @GetMapping(value = "/consulta", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}, consumes = MediaType.ALL_VALUE)
+    private ResponseEntity<List<AbcInformationContent>> getAbcInfo(@RequestParam(name = "requestInfo") String requestInfo){
 
         List<AbcInformationContent> abcListInfo = new ArrayList<>();
 
@@ -21,7 +19,5 @@ public class AbcApiRestController {
         abcListInfo.add(new AbcInformationContent("www.abc.com.py/noticia4", "www.abc.com.py/photo-noticia4", "titulo Noticia 4", "noticia4 Resumen"));
 
         return ResponseEntity.ok(abcListInfo);
-
     }
-
 }
