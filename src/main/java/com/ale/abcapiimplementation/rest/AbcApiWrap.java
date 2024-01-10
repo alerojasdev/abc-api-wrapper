@@ -11,10 +11,12 @@ import java.net.URISyntaxException;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 public class AbcApiWrap {
-    public NewsMetaData getAbcNewsData(String requestText) throws URISyntaxException, IOException, InterruptedException {
+    public List<NewsMetaData> getAbcNewsData(String requestText) throws URISyntaxException, IOException, InterruptedException {
         String urlHttp = "https://api.queryly.com/v4/search.aspx?queryly_key=33530b56c6aa4c20&initialized=1&&query="+requestText +"&endindex=0&batchsize=10&callback=&extendeddatafields=creator,imageresizer,promo_image&timezoneoffset=240";
 
             HttpClient client = HttpClient.newHttpClient();
@@ -37,7 +39,14 @@ public class AbcApiWrap {
 
                 AbcInformationContent[] infoContent = obm.readValue(json, AbcInformationContent[].class);
 
-                return new NewsMetaData(infoContent[0].getPubdate(), infoContent[0].getLink(), infoContent[0].getPromo_image(), infoContent[0].getTitle(), infoContent[0].getDescription());
+                List<NewsMetaData> newsMetaData = new ArrayList<>();
+
+                for (AbcInformationContent abcInformationContent : infoContent){
+                    newsMetaData.add(new NewsMetaData(abcInformationContent.getPubdate(), abcInformationContent.getLink(), abcInformationContent.getPromo_image(), abcInformationContent.getTitle(), abcInformationContent.getDescription()) );
+                }
+
+                return newsMetaData;
+
             } else {
                 return null;
             }

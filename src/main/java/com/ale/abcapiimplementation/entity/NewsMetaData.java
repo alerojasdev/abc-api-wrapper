@@ -17,8 +17,8 @@ public class NewsMetaData {
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MMM dd, yyyy");
         LocalDate localDate = LocalDate.parse(fecha, dateFormatter);
         this.fecha = localDate.atStartOfDay();
-        this.enlace = enlace;
-        this.enlace_foto = enlace_foto;
+        this.enlace = "https://www.abc.com.py"+enlace;
+        this.enlace_foto = "https://www.abc.com.py"+enlace_foto;
         this.titulo = titulo;
         this.resumen = resumen;
         this.contenido_foto = contenido_foto;
