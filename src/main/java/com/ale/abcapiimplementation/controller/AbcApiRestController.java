@@ -7,7 +7,6 @@ import com.ale.abcapiimplementation.rest.Base64Converter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
@@ -31,7 +30,6 @@ public class AbcApiRestController {
             if (f){
                 for (NewsMetaData dto : newsMetaData){
                     dto.setContenido_foto(base64Converter.imageUrlToBase64String(dto.getEnlace_foto()));
-
                 }
             }
 
