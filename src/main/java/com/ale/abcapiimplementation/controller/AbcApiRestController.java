@@ -1,25 +1,37 @@
 package com.ale.abcapiimplementation.controller;
 
-import com.ale.abcapiimplementation.entity.AbcInformationContent;
+import com.ale.abcapiimplementation.entity.ErrorBodyMessage;
+import com.ale.abcapiimplementation.entity.NewsMetaData;
 import com.ale.abcapiimplementation.rest.AbcApiWrap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.List;
 @RestController
 @RequestMapping("/abc-api-implementation")
 public class AbcApiRestController {
     @Autowired
     AbcApiWrap abcApiWrap;
-    @GetMapping(value = "/consulta", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}, consumes = MediaType.ALL_VALUE)
-    private ResponseEntity<List<AbcInformationContent>> getAbcInfo(@RequestParam(name = "requestInfo") String requestInfo) throws URISyntaxException, IOException, InterruptedException {
+    @GetMapping(value = "/consulta", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    private ResponseEntity getAbcInfo(@RequestParam(name = "requestInfo") String requestInfo){
 
-        List<AbcInformationContent> arrayData = abcApiWrap.getAbcNewsData();
+        try {
+            if (requestInfo == null || requestInfo.isEmpty() || requestInfo.isBlank()){
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                        .body(new ErrorBodyMessage("g268","Parámetros inválidos"));
+            }
 
-        return ResponseEntity.ok(arrayData);
+            NewsMetaData newsMetaData =  abcApiWrap.getAbcNewsData(requestInfo);
+            if (newsMetaData == null) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                        .body(new ErrorBodyMessage("g267", "No se encuentran noticias para el texto: {" + requestInfo + "}"));
+            } else {
+                return ResponseEntity.ok(newsMetaData);
+            }
+
+        } catch (Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new ErrorBodyMessage("g100", "Error interno del servidor"));
+        }
     }
 }
