@@ -1,10 +1,11 @@
-package com.ale.abcapiimplementation.entity;
+package com.ale.abcapiimplementation.dto;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class NewsMetaData {
+public class RequestedNewsData {
+
     LocalDateTime fecha;
     String enlace;
     String enlace_foto;
@@ -13,7 +14,7 @@ public class NewsMetaData {
     String contenido_foto;
     String content_type_foto;
 
-    public NewsMetaData(String fecha, String enlace, String enlace_foto, String titulo, String resumen) {
+    public RequestedNewsData(String fecha, String enlace, String enlace_foto, String titulo, String resumen) {
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MMM dd, yyyy");
         LocalDate localDate = LocalDate.parse(fecha, dateFormatter);
         this.fecha = localDate.atStartOfDay();
@@ -92,5 +93,28 @@ public class NewsMetaData {
                 ", contenido_foto='" + contenido_foto + '\'' +
                 ", content_type_foto='" + content_type_foto + '\'' +
                 '}';
+    }
+
+    public String toText() {
+        return String.format(
+                """
+                Titulo: %s
+                Fecha: %s
+                Resumen: %s
+                Enlace: %s
+                """, titulo, fecha, resumen, enlace);
+    }
+
+
+    public String toHtml() {
+        return String.format(
+                """
+                <div>
+                <p><b>Titulo:</b> %s </p>
+                <p><b>Fecha:</b> %s </p>
+                <p><b>Resumen:</b> %s </p>
+                <p><b>Enlace:</b> %s </p>
+                </div>
+                """, titulo, fecha, resumen, enlace);
     }
 }

@@ -1,8 +1,8 @@
-package com.ale.abcapiimplementation.entity;
+package com.ale.abcapiimplementation.dto;
 
 import jakarta.persistence.Table;
 @Table(name = "AbcInformationContent")
-public class AbcInformationContent {
+public class NewsDataFromAbc {
 
     private int _id;
     private String index;

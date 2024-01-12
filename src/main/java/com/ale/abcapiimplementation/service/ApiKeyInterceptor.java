@@ -1,6 +1,6 @@
-package com.ale.abcapiimplementation.security;
+package com.ale.abcapiimplementation.service;
 
-import com.ale.abcapiimplementation.entity.ErrorBodyMessage;
+import com.ale.abcapiimplementation.dto.ErrorBodyMessage;
 import com.ale.abcapiimplementation.repository.ApiKeyRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;

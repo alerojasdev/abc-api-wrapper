@@ -1,4 +1,4 @@
-package com.ale.abcapiimplementation.entity;
+package com.ale.abcapiimplementation.dto;
 
 public class ErrorBodyMessage {
     String codigo;

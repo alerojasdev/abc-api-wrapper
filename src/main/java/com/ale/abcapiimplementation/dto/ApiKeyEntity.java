@@ -1,9 +1,9 @@
-package com.ale.abcapiimplementation.entity;
+package com.ale.abcapiimplementation.dto;
 
 import jakarta.persistence.*;
 
 @Entity
-public class ApiKey {
+public class ApiKeyEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

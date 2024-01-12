@@ -1,6 +1,6 @@
 package com.ale.abcapiimplementation.repository;
 
-import com.ale.abcapiimplementation.entity.ApiKey;
+import com.ale.abcapiimplementation.dto.ApiKeyEntity;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -12,7 +12,7 @@ public class DatabaseInitializer {
 
     @PostConstruct
     public void init() {
-        ApiKey apiKeyEntity = new ApiKey();
+        ApiKeyEntity apiKeyEntity = new ApiKeyEntity();
         apiKeyEntity.setCodeAccess("ABC123");
         repository.save(apiKeyEntity);
     }
