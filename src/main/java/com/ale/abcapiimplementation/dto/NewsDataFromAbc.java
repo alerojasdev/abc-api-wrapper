@@ -1,7 +1,4 @@
 package com.ale.abcapiimplementation.dto;
-
-import jakarta.persistence.Table;
-@Table(name = "AbcInformationContent")
 public class NewsDataFromAbc {
 
     private int _id;

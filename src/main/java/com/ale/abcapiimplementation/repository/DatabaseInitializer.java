@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
 public class DatabaseInitializer {
     @Autowired
     private ApiKeyRepository repository;
-
     @PostConstruct
     public void init() {
         ApiKeyEntity apiKeyEntity = new ApiKeyEntity();

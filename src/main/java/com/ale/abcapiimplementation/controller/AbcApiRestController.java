@@ -32,6 +32,7 @@ public class AbcApiRestController {
     ){
         try {
 
+            // Si el requestInfo no esta presente, retornamos error
             if (requestInfo == null || requestInfo.isEmpty() || requestInfo.isBlank()){
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                         .body(new ErrorBodyMessage("g268","Parámetros inválidos"));
@@ -39,20 +40,24 @@ public class AbcApiRestController {
 
             List<RequestedNewsData> requestedNewsData =  abcApiWrap.getAbcNewsData(requestInfo);
 
-            if (Boolean.FALSE.equals(base64Requested)){
+            // Si el parametro f es true, incluimos la informacion de foto en base64
+            if (Boolean.TRUE.equals(base64Requested)){
                 for (RequestedNewsData dto : requestedNewsData){
                     dto.setContenido_foto(base64Converter.imageUrlToBase64String(dto.getEnlace_foto()));
                 }
             }
 
+            // Si no pudimos conseguir la info de abc.com.py, retornamos error
             if (requestedNewsData == null) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND)
                         .body(new ErrorBodyMessage("g267", "No se encuentran noticias para el texto: {" + requestInfo + "}"));
             } else {
+                // la serializacion a json/xml/text/html es automatica
                 return ResponseEntity.ok(requestedNewsData);
             }
 
         } catch (Exception e){
+            // si es que hubo un error no esperado
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(new ErrorBodyMessage("g100", "Error interno del servidor"));
         }
